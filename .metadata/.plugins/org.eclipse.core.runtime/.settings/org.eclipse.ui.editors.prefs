@@ -1,6 +1,11 @@
+AbstractTextEditor.Color.Background=250,250,250
 AbstractTextEditor.Color.Background.SystemDefault=false
 AbstractTextEditor.Color.SelectionBackground.SystemDefault=false
 AbstractTextEditor.Color.SelectionForeground.SystemDefault=false
+SQLEditor.extraPanels.ratio=200-200
+SQLEditor.resultSet.ratio=200-200
 eclipse.preferences.version=1
-lineNumberRuler=false
+overviewRuler_migration=migrated_3.1
 spellingEnabled=false
+tabWidth=3
+wordwrap.enabled=true

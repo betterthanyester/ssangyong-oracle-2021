@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
-themeid=com.genuitec.eclipse.themes.Dark
+org.eclipse.tm4e.ui.themeAssociations=[]
+org.eclipse.tm4e.ui.themes=[]

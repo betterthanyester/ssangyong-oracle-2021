@@ -1,2 +1,4 @@
+DOCK_PERSPECTIVE_BAR=TOP_RIGHT
 eclipse.preferences.version=1
 showIntro=false
+wordwrap.enabled=true
