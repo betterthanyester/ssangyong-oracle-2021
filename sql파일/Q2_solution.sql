@@ -139,12 +139,14 @@ where
     salary >= 5000;
     
 --Q31
+--남자 직원 + 80년대생
+
 SELECT
     distinct jikwi
 FROM
     tblinsa
 where
-    ssn like '8%';
+    ssn like '8%-2%';
     
     
 --Q32
