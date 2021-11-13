@@ -2,26 +2,6 @@
 -- 주소록 테이블 & 데이터
 -----------------------------------------------------------------------
 
-create table tblAddressBook (
-	seq number primary key,
-	name varchar2(20) not null,
-	gender varchar2(1) check(gender in ('m', 'f')) not null,
-	age number not null, --나이
-	height number(3) null, --키
-	weight number(5,1) null, --몸무게
-	
-	email varchar2( 100) null,	
-	tel varchar2(15) null, --전화번호
-	job varchar2(30) not null, --직업
-	
-	zipcode varchar2(5) not null, --우편번호
-	address varchar2(100) not null, --주소
-	hometown varchar2(50) not null --고향
-);
-
-create sequence addressbook_seq;
-
-
 
 
 insert into tblAddressBook (seq, name, gender, age, height, weight, email, tel, job, zipcode, address, hometown) values (addressbook_seq.nextval, '최민기', 'm', 32, 160, 74, 'behavior@gmail.com', '010-8296-4828', '학생', '17548', '경기도 안성시 공도읍 문터1길 6', '서울');

@@ -135,4 +135,109 @@ select
     end) as "90년대 여자"
 from tblInsa;
 
+/*
+2. sum()
+    - number sum(컬럼명)
+    - 해당 칼럼값의 합을 구한다.
+    - 숫자형 컬럼에 적용한다. (문자형X, 날짜형X)
+
+
+*/ 
+
+
+select sum(area) from tblCountry;
+select sum(population) from tblCountry;
+select sum(name) from tblCountry; -- ORA-01722: invalid number
+
+select
+    sum(basicpay), sum(sudang),
+    sum(basicpay) + sum(sudang),
+    sum(basicpay + sudang)
+from tblInsa;
+
+select sum(ibsadate) from tblInsa; --ORA-00932: inconsistent datatypes: expected NUMBER got DATE
+
+select sum(basicpay) from tblInsa where buseo = '기획부';
+select sum(basicpay) from tblInsa where jikwi = '부장';
+
+/*
+
+3. avg
+    - number avg(컬럼명)
+    - 해당 컬럼값의 평균을 구한다.
+    - 숫자형 컬럼에 적용한다.
+    - null인 레코드는 몫에서 제외한다 (*****)
+*/
+
+-- 급여 평균?
+select sum(basicpay)/60 from tblInsa;
+select sum(basicpay)/? from tblInsa;  --직원수는 항상 바뀜
+select sum(basicpay)/count(*) from tblInsa;  --위에 보단 안정적
+select avg(basicpay) from tblInsa;  --avg로 한번에
+
+--- 주의 : avg는 평균을 하는 속성값이 null인 튜플은 제외하고 평균을 구한다.
+
+select 
+    avg(population),                    --15588.6153846153846153846153846153846154
+    sum(population)/count(*),           --14475.1428571428571428571428571428571429
+    sum(population)/count(population),  --15588.6153846153846153846153846153846154
+
+from tblCountry;
+
+select
+    count(*),
+    count(population) --케냐(null) > count()함수는 null을 제외한다.
+from tblCountry;
+
+
+-- 회사 성과급 지급
+--  : 실적 발생 > 지급
+--  1. 균등 지급 : 총지급액 / 모든 팀원수 = sum()/count(*)
+--  2. 차등 지급 : 총지급액 / 참여 팀원수 = sum()/count(참여팀원)
+
+
+/*
+
+4. max()
+5. min()
+    - object max(컬럼명) : 최대값 반환
+    - object min(컬럼명) : 최소값 반환
+    - 숫자형, 문자형, 날짜형 모두 적용한다.
+
+*/
+
+select max(height), min(height), max(weight), min(weight) from tblComedian;
+
+select max(name),min(name), max(ibsadate), min(ibsadate) from tblInsa;
+
+select 
+    count(*) as "영업부 직원수",
+    sum(basicpay) as "영업부 총급여 합",
+    avg(basicpay) as "영업부 평균 급여",
+    max(basicpay) as "영업부 최고 급여",
+    min(basicpay) as "영업부 최소 급여"
+from tblInsa
+    where buseo = '영업부';
+
+
+
+-- 집계 함수 사용 시 주의점!! ***********************
+
+-- 1.ORA-00937: not a single-group group function
+-- 컬럼 리스트에 집계 함수와 단일 컬럼은 동시에 사용할 수 없다.
+--  > 성질이 다르다
+--  > 집계 함수 (집합값), 단일 컬럼(개인값)
+select count(*) from tblInsa;
+select name from tblInsa;
+select count(name) from tblInsa;
+
+select name, count(name) from tblInsa; --ORA-00937: not a single-group group function
+
+
+
+-- 2. ORA-00934: group function is not allowed here
+--  where절에는 집계 함수를 사용할 수 없다.
+--  where절은 개개인에 대한 조건을 다루는 영역
+select avg(basicpay) from tblInsa;
+select * from tblInsa where basicpay > avg(basicpay); --ORA-00934: group function is not allowed here
 
