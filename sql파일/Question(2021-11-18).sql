@@ -9,8 +9,9 @@ select
     trans_type,
     sum(total_acct_num),
     sum(death_person_num),
-    round(sum(death_person_num)/sum(total_acct_num))
+    round(sum(death_person_num)/sum(total_acct_num),3)
 from traffic_accident
+    --where total_acct_num > 0 --방어적 코딩
     group by trans_type;
 
 --2. tblZoo. 종류(family)별 평균 다리의 갯수를 가져오시오.
@@ -19,7 +20,7 @@ select  * from tblzoo;
 
 select 
     family,
-    round(sum(leg)/count(*))
+    round(sum(leg)/count(*),2)
 from tblzoo
     group by family
     ;
@@ -29,7 +30,7 @@ select  * from tblzoo;
 
 select
     breath,
-    count(distinct(family))
+    count(family)
 from tblzoo
 where thermo = 'variable'
     group by breath
@@ -66,70 +67,15 @@ from tblMen
 ;
 
 --10. tblAddressBook. 가장 많은 사람들이 가지고 있는 직업은 주로 어느 지역 태생(hometown)인가?
+select * from tblAddressbook;
 
-select * from tbladdressbook;
 
-    --직업 / count 테이블
-select job,count(*) as num from tbladdressbook group by job;
+select
+    distinct(hometown) from
+from tbl
 
- 
-    -- 직업 max 값 
-select max(count(*))from tblAddressbook group by job;
-    
-    -- max인 직업 (학생)
-select job 
-from (select job,count(*) as num from tbladdressbook group by job
-) table1 
-where table1.num = (select max(count(*))from tblAddressbook group by job
-);
 
-    -- max직업의 hometown, count 테이블
-select hometown,count(*)as num2
-from tblAddressBook
-    where job = (select job 
-from (select job,count(*) as num from tbladdressbook group by job
-) table1 
-where table1.num = (select max(count(*))from tblAddressbook group by job
-)) 
-    group by rollup(hometown)
-    ;
-    
-    
-    --max hometown 값 : 167
-    select max(num2) from (select hometown,count(*)as num2
-from tblAddressBook
-    where job = (select job 
-from (select job,count(*) as num from tbladdressbook group by job
-) table1 
-where table1.num = (select max(count(*))from tblAddressbook group by job
-)) 
-    group by hometown);
-    
-    
-    
-    
-    
-    
-    
-    -- hometown (최종 결과) : 서울
-    select
-        hometown 
-    from (select hometown,count(*)as num2
-from tblAddressBook
-    where job = (select job 
-from (select job,count(*) as num from tbladdressbook group by job
-) table1 
-where table1.num = (select max(count(*))from tblAddressbook group by job
-)) 
-    group by rollup(hometown))
-    where num2 = (select max(num2) from (select hometown,count(*)as num2
-from tblAddressBook
-    where job = (select job 
-from (select job,count(*) as num from tbladdressbook group by job
-) table1 
-where table1.num = (select max(count(*))from tblAddressbook group by job
-)) 
-    group by hometown));
+
 
 --12. tblAddressBook. 관리자의 실수로 몇몇 사람들의 이메일 주소가 중복되었다. 중복된 이메일 주소만 가져오시오.
 

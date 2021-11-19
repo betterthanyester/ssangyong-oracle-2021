@@ -8,15 +8,15 @@ insert into tblcustomer (seq, name, tel, address)
 
 
 -- 판매 데이터
-insert into tblsales (seq, item, qty, customer) values (1, '전화기', 1, 1);
-insert into tblsales (seq, item, qty, customer) values (2, '다이어리', 3, 2);
-insert into tblsales (seq, item, qty, customer) values (3, '노트', 10, 2);
-insert into tblsales (seq, item, qty, customer) values (4, '볼펜', 20, 3);
-insert into tblsales (seq, item, qty, customer) values (5, '지우개', 15, 3);
-insert into tblsales (seq, item, qty, customer) values (6, '마우스', 5, 1);
-insert into tblsales (seq, item, qty, customer) values (7, '키보드', 2, 3);
-insert into tblsales (seq, item, qty, customer) values (8, '모니터', 1, 2);
-insert into tblsales (seq, item, qty, customer) values (9, '선풍기', 2, 1);
+insert into tblsales (seq, item, qty, cseq) values (1, '전화기', 1, 1);
+insert into tblsales (seq, item, qty, cseq) values (2, '다이어리', 3, 2);
+insert into tblsales (seq, item, qty, cseq) values (3, '노트', 10, 2);
+insert into tblsales (seq, item, qty, cseq) values (4, '볼펜', 20, 3);
+insert into tblsales (seq, item, qty, cseq) values (5, '지우개', 15, 3);
+insert into tblsales (seq, item, qty, cseq) values (6, '마우스', 5, 1);
+insert into tblsales (seq, item, qty, cseq) values (7, '키보드', 2, 3);
+insert into tblsales (seq, item, qty, cseq) values (8, '모니터', 1, 2);
+insert into tblsales (seq, item, qty, cseq) values (9, '선풍기', 2, 1);
 
 commit;
 
