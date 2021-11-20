@@ -60,8 +60,6 @@ select
 from tblAddressBook
     where job = (select job from tblAddressBook group by job having count(*) = (select max(count(*)) from tblAddressBook group by job))
         order by hometown asc;
-        
-        
 
 --12. tblAddressBook. 관리자의 실수로 몇몇 사람들의 이메일 주소가 중복되었다. 중복된 이메일 주소만 가져오시오.
 SELECT 

@@ -147,25 +147,10 @@ from jobs j inner join employees e
 
 -- ** 35. employees, jobs. 직무(job_id)별 최고급여(max_salary) 받는 사원 정보를 가져오시오.
 
-select 
-ename, jid, salary
-from (select
-    e.first_name ||' ' || e.last_name as ename,
-    e.job_id as jid,
-    e.salary as salary
-    from jobs j inner join employees e
-        on j.job_id = e.job_id)
-where salary = (select 
-;
+select * 
+    from jobs j inner join employees e on j.job_id = e.job_id
+        where e.salary = j.max_salary;
 
-
-select
-e.first_name ||' ' || e.last_name as ename,
-e.job_id as jid,
-e.salary as salary
-from jobs j inner join employees e
-    on j.job_id = e.job_id;
-    
     
 --36. departments, locations. 모든 부서와 각 부서가 위치하고 있는 도시의 이름을 가져오시오.
 
@@ -294,38 +279,60 @@ from departments d inner join job_history h
 --** 46. employees, jobs. 직책(Job Title)이 Sales Manager인 사원들의 입사년도와 입사년도(hire_date)별 평균 급여를 가져오시오. 년도를 기준으로 오름차순 정렬.
 
 
+select * from jobs j inner join employees e on j.job_id = e.job_id;
+select to_char(e.hire_date, 'yyyy') from jobs j inner join employees e on j.job_id = e.job_id;
+
+
+select 
+    to_char(e.hire_date, 'yyyy'),
+    round(avg(salary))
+        from jobs j inner join employees e on j.job_id = e.job_id
+            group by to_char(e.hire_date, 'yyyy')
+                order by to_char(e.hire_date, 'yyyy') asc;
+
+--47. employees, departments. locations. 
+--  각 도시(city)에 있는 모든 부서 사원들의 평균급여가 가장 낮은 도시부터 
+--  도시명(city)과 평균연봉, 해당 도시의 사원수를 가져오시오. 
+--  단, 도시에 근 무하는 사원이 10명 이상인 곳은 제외하고 가져오시오.
+
+select * from locations l inner join departments d on l.location_id = d.location_id inner join employees e on d.department_id = e.department_id;
+
+
+select 
+    l.city, 
+    round(avg(e.salary)),
+    count(*) 
+        from locations l inner join departments d on l.location_id = d.location_id inner join employees e on d.department_id = e.department_id
+            -- where 사원 수>=10 : X... city로 그룹화된 결과에 대해 추가 기준 적용하여 소그룹을 도출하는 것이므로, having 써야함
+            group by l.city
+                having count(*) >=10
+                    order by avg(e.salary) asc;
+
+--48. employees, jobs, job_history. 
+--  ‘Public  Accountant’의 직책(job_title)으로 과거에 근무한 적이 있는 모든 사원의 사번과 이름을 가져오시오. 
+--  현재 ‘Public Accountant’의 직책(job_title)으로 근무하는 사원은 고려 하지 말것.
+select * from job_history;
+select * from jobs;
+select * from jobs j inner join employees e on j.job_id = e.job_id inner join job_history h on j.job_id = h.job_id;
+
+
 select
---입사년도와 입사년도(hire_date)별 평균 급여
-*
-from jobs j inner join employees e
-    on j.job_id = e.job_id
-    where j.job_title = 'Sales Manager';
+    distinct(e.employee_id), e.first_name ||' ' || e.last_name
+    from jobs j inner join employees e on j.job_id = e.job_id inner join job_history h on j.job_id = h.job_id
+        where j.job_title = 'Public Accountant';
 
-
-
-
-
---47. employees, departments. locations. 각 도시(city)에 있는 모든 부서 사원들의 평균급여가 가장 낮은 도시부터 도시명(city)과 평균연봉, 해당 도시의 사원수를 가져오시오. 단, 도시에 근 무하는 사원이 10명 이상인 곳은 제외하고 가져오시오.
+--49. employees, departments, locations. 
+--  커미션을 받는 모든 사람들의 first_name, last_name, 부서명, 지역 id, 도시명을 가져
 
 select 
 --이름, 직위, 부서번호, 부서이름
-e.first_name ||' ' || e.last_name, e.job_id, e.department_id, d.department_name
+e.first_name ||' ' || e.last_name, d.department_name, l.location_id,l.city
 from locations l inner join departments d
     on l.location_id = d.location_id
         inner join employees e
             on d.department_id = e.department_id
-    where l.city = 'Seattle'             
+    where e.COMMISSION_PCT is not null             
 ;
-
-
-
---48. employees, jobs, job_history. ‘Public  Accountant’의 직책(job_title)으로 과거에 근무한 적이 있는 모든 사원의 사번과 이름을 가져오시오. 현재 ‘Public Accountant’의 직책(job_title)으로 근무하는 사원은 고려 하지 말것.
-
-
-
---49. employees, departments, locations. 커미션을 받는 모든 사람들의 first_name, last_name, 부서명, 지역 id, 도시명을 가져
-
-
 
 
 --** 50. employees. 자신의 매니저보다 먼저 고용된 사원들의 first_name, last_name, 고용일을 가져오시오.

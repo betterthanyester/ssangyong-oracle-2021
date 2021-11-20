@@ -71,8 +71,20 @@ select * from tblAddressbook;
 
 
 select
-    distinct(hometown) from
-from tbl
+--어느 지역 태생(hometown)인가
+    distinct(hometown) 
+from tbladdressbook    
+--가장 많은 사람들이 가지고 있는 직업 
+    where job = (select job from tbladdressbook 
+    group by job
+    having count(*) = (select max(count(*)) from tbladdressbook group by job))
+    order by hometown
+    ;
+    
+--가장 많은 사람들이 가지고 있는 직업 (서브쿼리)
+select job from tbladdressbook 
+    group by job
+    having count(*) = (select max(count(*)) from tbladdressbook group by job);
 
 
 
@@ -80,81 +92,57 @@ from tbl
 --12. tblAddressBook. 관리자의 실수로 몇몇 사람들의 이메일 주소가 중복되었다. 중복된 이메일 주소만 가져오시오.
 
 
-select * from tblAddressbook;
-
-s
-
 select table1.email
 from (select email, count(*) as num from tbladdressbook group by email) table1
 where table1.num > 1
 ;
 
+--having절을 자주 잘 써야 함. 아래처럼. group by 혼자만 쓰니까 제대로 group을 활용 못하는 거임
+--having은 그룹에서 또다른 기준으로 데이터를 쳐내서 하위 그룹으로 만들 때 사용
+SELECT 
+    email, count(email)
+FROM tbladdressbook 
+    group by email having count(email) > 1;
+
+
 --13. tblAddressBook. 이메일 도메인들 중 평균 아이디 길이가 가장 긴 이메일 사이트의 도메인은 무엇인가?
 
-select substr(email, 1, instr(email,'@')-1) from tbladdressbook;
-select substr(email, instr(email,'@')+1 ) from tbladdressbook;
+select substr(email, 1, instr(email,'@')-1) from tbladdressbook; --@앞부분, id
+select substr(email, instr(email,'@')+1 ) from tbladdressbook;   --@뒷부분, 도메인
 
-    -- 아이디 길이, 도메인 테이블     
+
 select 
-    length(substr(email, 1, instr(email,'@')-1)) as id_length,
-    substr(email, instr(email,'@')+1 ) as domain
-  from tbladdressbook;
-
-    -- 도메인, 아이디 길이 평균 테이블
-    select domain, avg(id_length) as average
-    from (select length(substr(email, 1, instr(email,'@')-1)) as id_length, substr(email, instr(email,'@')+1 ) as domain
-            from tbladdressbook)
-    group by domain;
-
-
-    --max 값
-    select 
-        max(average)
-    from (
-            select domain, avg(id_length) as average
-            from (select length(substr(email, 1, instr(email,'@')-1)) as id_length, substr(email, instr(email,'@')+1 ) as domain
-            from tbladdressbook)
-            group by domain
-        );
-        
-    -- 도메인 값
-    select 
-        domain
-    from (
-            select domain, avg(id_length) as average
-            from (select length(substr(email, 1, instr(email,'@')-1)) as id_length, substr(email, instr(email,'@')+1 ) as domain
-            from tbladdressbook)
-            group by domain
-        )
-    where (
-        average = (
-                    
-                    select 
-                        max(average)
-                    from (
-                            select domain, avg(id_length) as average
-                            from (select length(substr(email, 1, instr(email,'@')-1)) as id_length, substr(email, instr(email,'@')+1 ) as domain
-                            from tbladdressbook)
-                            group by domain
-                        )           
-                    
-                    )
-            );
-
-
-
-/* group by 내에서 서브 쿼리 사용 불가... ORA-22818: subquery expressions not allowed here
-
-select
-    (select substr(email, instr(email,'@')+1 ) from tbladdressbook) as domain,
-    sum(length(substr(email, 1, instr(email,'@')-1)))
-from tblAddressbook
-group by (select substr(email, instr(email,'@')+1 ) from tbladdressbook);
-*/
+    substr(email, instr(email,'@')+1 )
+from tbladdressbook
+    group by substr(email, instr(email,'@')+1 )
+    having avg(length(substr(email, 1, instr(email,'@')-1))) = (select max(avg(length(substr(email, 1, instr(email,'@')-1)))) 
+    from tbladdressbook 
+        group by substr(email, instr(email,'@')+1 ));
 
 
 --14. tblAddressBook. 평균 나이가 가장 많은 출신(hometown)들이 가지고 있는 직업 중 가장 많은 직업은?
 
+select * from tblAddressBook;
+
+select
+    job
+
+    from tblAddressbook
+    --평균 나이가 가장 많은 hometown
+        where hometown = (select hometown from tblAddressbook
+                         group by hometown
+                         having avg(age) = (select max(avg(age)) from tbladdressbook group by hometown))
+            group by job
+            --가장 많은 직업
+            having count(*) = (select max(count(*)) from tblAddressbook
+                                --평균 나이가 가장 많은 hometown
+                                    where hometown = (select hometown from tblAddressbook
+                                                     group by hometown
+                                                     having avg(age) = (select max(avg(age)) from tbladdressbook group by hometown))
+                                        group by job);
+        
+
+        
 
 
 --15. tblAddressBook. 성씨별 인원수가 100명 이상 되는 성씨들을 가져오시오.
@@ -188,6 +176,18 @@ from tbladdressbook
 
 
 --17. tblAddressBook. 이메일이 스네이크 명명법으로 만들어진 사람들 중에서 여자이며, 20대이며, 키가 150~160cm 사이며, 고향이 서울 또는 인천인 사람들만 가져오시오.
+
+select * from tbladdressbook;
+
+select *
+from tblAddressbook
+    where substr(email, 1, instr(email,'@')-1 ) like '%_%'
+        and gender = 'f'
+        and floor(age/10) = 2
+        and floor(height/10) = 15
+        and hometown in ('서울', '인천');
+
+
 
 --18. tblAddressBook. gmail.com을 사용하는 사람들의 성별 > 세대별(10,20,30,40대) 인원수를 가져오시오.
 
