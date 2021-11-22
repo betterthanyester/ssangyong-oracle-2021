@@ -608,4 +608,181 @@ from employees e
                                 on c.country_id = l.country_id
                                     inner join regions r
                                         on r.region_id = c.region_id;
-                                
+                                        
+                                        
+                                        
+/*
+3. 외부 조인, OUTER JOIN *******
+    - 내부 조인 + 조인의 결과셋에 포함되지 못한 부모 테이블의 나머지 레코드
+    - SELECT 컬럼리스트 FROM 테이블A (LEFT|RIGHT) OUTER JOIN 테이블B ON 테이블A.컬럼 = 테이블B.컬럼
+(비교 : SELECT  컬럼리스트 FROM 테이블A            INNER JOIN 테이블B ON 테이블A.컬럼 = 테이블B.컬럼 -> INNER JOIN)
+    - 방향 (LEFT/RIGHT)는 부모 테이블을 가리키는 방향으로 작성
+
+*/                                        
+-- 물건을 한번이라도 구매한 이력이 있는 고객과 판매 정보를 같이 가져오시오 
+select * from tblCustomer c
+    inner join tblSales s
+        on c.seq = s.cseq;
+        
+
+insert into tblCustomer values (4, '호호호', '010-1234-5678', '서울시');
+select * from tblcustomer;
+
+-- 구매 이력과 무관하게 모든 고객과 판매 정보를 같이 가져오시오
+        
+select * from tblCustomer c
+    left outer join tblSales s
+        on c.seq = s.cseq;
+        
+-- tblVideo, tblRent
+--대여가 한번이라도 된 비디오와 그 대여 내역을 가져오시오.
+select * from tblVideo v
+    inner join tblRent r
+        on v.seq = r.video;
+
+-- 대여와 상관없이 모든 비디오와 그 대여 내역을 가져오시오.
+select * from tblVideo v
+    left outer join tblRent r
+        on v.seq = r.video;
+
+-- tblMember + tblRent
+--대여를 한번이라도 한 회원과 그 대여 내역을 가져오시오.
+select * from tblMember m
+    inner join tblRent r
+        on m.seq = r.member;                                        
+                  
+--대여와 상관없이 모든 회원과 그 대여 내역을 가져오시오.
+select * from tblMember m
+    left outer join tblRent r
+        on m.seq = r.member; 
+                      
+--대여를 한번이라도 한 회원의 이름을 가져오시오.
+select distinct(m.name) from tblMember m
+    inner join tblRent r
+        on m.seq = r.member;         
+        
+--대여를 한번이라도 한 회원의 수
+select count(distinct(name)) from tblMember m
+    inner join tblRent r
+        on m.seq = r.member;  
+        
+--대여를 한번이라도 한 회원의 이름과 대여 횟수를 가져오시오.
+select m.name, count(*) from tblMember m
+    inner join tblRent r
+        on m.seq = r.member
+            group by m.name;   --from tblMember m inner join tblRent r on m.seq = r.member  : 이거 전체가 테이블이라고 생각
+        
+--모든 회원의 이름과 대여 횟수를 가져오시오. 
+select m.name, count(r.seq) from tblMember m
+    left outer join tblRent r
+        on m.seq = r.member
+                group by m.name;
+                
+-- 직원명 + 부서명
+select * from employees;
+select * from departments;
+
+select 
+    first_name || ' ' || last_name as name,
+    department_name
+    from employees e
+        inner join departments d
+            on e.department_id = d.department_id;
+
+--인라인뷰 
+select 
+    first_name || ' ' || last_name as name,
+    department_name
+    from (select department_id, first_name, last_name from employees) e
+        inner join (select department_id, department_name from departments) d
+            on e.department_id = d.department_id; 
+            
+--뷰를 사용하는 방식     
+create or replace view vmA
+as
+select department_id, first_name, last_name from employees;
+            
+create or replace view vmB
+as
+select department_id, department_name from departments;    
+
+select 
+    first_name || ' ' || last_name as name,
+    department_name
+    from vmA e
+        inner join vmB d
+            on e.department_id = d.department_id; 
+            
+--------            
+create or replace view vmC
+as
+select 
+    first_name || ' ' || last_name as name,
+    department_name
+    from (select department_id, first_name, last_name from employees) e
+        inner join (select department_id, department_name from departments) d
+            on e.department_id = d.department_id;
+
+select * from vmC;
+            
+/*
+4. 셀프 조인, SELF JOIM
+    - 1개의 테이블을 사용해서 조인
+    - 테이블이 스스로 관계를 맺는 경우에 사용
+    - 셀프조인 + 내부조인
+    - 셀프조인 + 외부조인
+
+*/
+
+-- 직원 테이블
+create table tblSelf (
+    seq number primary key,                     --직원번호(PK)
+    name varchar2(30) not null,                 --직원명
+    department varchar2(50) null,               --부서명
+    super number null references tblSelf(seq)   --자기참조, 상사번호(FK)
+      
+);
+
+insert into tblSelf values (1, '홍사장', null,null );
+insert into tblSelf values (2, '김부장', '영업부', 1);
+insert into tblSelf values (3, '이과장', '영업부', 2);
+insert into tblSelf values (4, '정대리', '영업부', 3);
+insert into tblSelf values (5, '최사원', '영업부', 4);
+
+insert into tblSelf values (6, '박부장', '개발부', 1);
+insert into tblSelf values (7, '하과장', '개발부', 6);
+
+select * from tblSelf;
+
+
+-- 직원 명단을 가져오시오.(단, 상사의 이름도 같이)
+    --방법 1: join
+--select * from 직원테이블 outer join 상사테이블 on 직원테이블.super = 상사테이블. seq;
+--근데 직원테이블 = 상사테이블 = tblSelf
+
+select 
+    a.name as "직원명",
+    b.name as "상사명"
+    from tblSelf a 
+        left outer join tblSelf b
+            on a.super = b.seq
+                order by a.seq asc;
+        
+        
+    --방법 2: subquery
+select * from tblSelf;
+
+            --  상관성 쿼리로 풀면 됨
+select 
+    name as "직원명",
+    (select name from tblSelf where a.super = seq) as "상사명" --바깥테이블의 상사번호 = 안쪽 테이블의 직원번호
+from tblSelf a;                 
+
+/*
+5. 전체 외부조인 (FULL OUTER JOIN)
+    - 외부조인인데, 부모테이블뿐만 아니라 자식테이블에서도 누락된 컬럼을 살리는 것.
+    - 쓸 일이 많이 없다.
+
+*/
+
+
