@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="16" version="2.0">
 <workbenchAdvisor/>
-<window height="1277" width="1667" x="335" y="114">
+<window height="1277" minimized="true" width="1667" x="494" y="93">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -32,10 +32,10 @@
 </folder>
 </info>
 </editorArea>
-<editor id="com.tomato.exerd.editor.DiagramEditor" name="수업.exerd" partName="수업.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/수업.exerd" title="수업.exerd" tooltip="ERD/수업.exerd" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="수업.exerd" partName="수업.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/수업.exerd" title="수업.exerd" tooltip="ERD/수업.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ERD/수업.exerd"/>
 </editor>
-<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="hr.exerd" partName="hr.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/hr.exerd" title="hr.exerd" tooltip="ERD/hr.exerd" workbook="DefaultEditorWorkbook">
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="hr.exerd" partName="hr.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/hr.exerd" title="hr.exerd" tooltip="ERD/hr.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ERD/hr.exerd"/>
 </editor>
 <editor id="com.tomato.exerd.editor.DiagramEditor" name="순공학테스트.exerd" partName="순공학테스트.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/순공학테스트.exerd" title="순공학테스트.exerd" tooltip="ERD/순공학테스트.exerd" workbook="DefaultEditorWorkbook">
@@ -174,6 +174,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/hr.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/순공학테스트.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/hr.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/수업.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/순공학테스트.exerd"/>
 </editors>
 <item historyLabel="수업.exerd" index="0"/>
 <item historyLabel="hr.exerd" index="1"/>
@@ -181,7 +183,13 @@
 <item historyLabel="수업.exerd" index="0"/>
 <item historyLabel="hr.exerd" index="3"/>
 <item historyLabel="수업.exerd" index="0"/>
-<item active="true" historyLabel="hr.exerd" index="3"/>
+<item historyLabel="hr.exerd" index="3"/>
+<item historyLabel="수업.exerd" index="4"/>
+<item historyLabel="hr.exerd" index="3"/>
+<item historyLabel="순공학테스트.exerd" index="5"/>
+<item historyLabel="수업.exerd" index="4"/>
+<item historyLabel="hr.exerd" index="3"/>
+<item active="true" historyLabel="수업.exerd" index="4"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
