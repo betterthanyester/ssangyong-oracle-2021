@@ -426,3 +426,329 @@ select
 from tblCountry;
         
 
+
+/*
+
+반복문
+    1. loop
+        - 단순 반복
+        
+    2. for loop
+        - 횟수 반복 (자바 for)
+        - loop 기반
+        
+    3. while loop
+        - 조건 반복 (자바 while)
+        - loop 기반
+
+*/
+
+set serverout on;
+
+declare
+    vnum number := 1;
+begin
+    loop
+        dbms_output.put_line(to_char(sysdate, 'hh24:mi:ss'));
+        vnum := vnum + 1;
+        exit when vnum > 10; --탈출조건 : 없으면 무한루프
+    end loop;
+end;
+
+
+
+create table tblLoop (
+    seq number primary key,
+    data varchar2(30) not null
+);
+
+create sequence seqLoop;
+
+
+declare
+    vnum number :=1;
+begin
+    loop
+        insert into tblLoop values (seqLoop.nextVal, '데이터' ||vnum);
+        vnum := vnum +1;
+        exit when vnum > 10000;
+    end loop;
+end;
+
+select count(*) from tblLoop;
+
+--  2. for loop
+
+begin 
+    for i in 1..10 loop
+        dbms_output.put_line(i);
+    end loop;
+end;
+
+---구구단
+
+    -- 복합키 만드는 방법
+create table tblGugudan (
+    dan number not null primary key,
+    num number not null primary key, --ORA-02260: table can have only one primary key
+    result number not null
+
+);
+
+create table tblGugudan (
+    dan number not null,
+    num number not null, --ORA-02260: table can have only one primary key
+    result number not null,
+
+    constraint tblgugudan_dan_num_pk primary key(dan, num) --복합키 선언 방법
+);
+
+alter table tblGugudan
+    add constraint tblgugudan_dan_num_pk primary key(dan,num);  --복합키 선언 방법2 : 테이블 수정으로 하는 방법
+
+
+begin
+    for dan in 2..9 loop
+        for num in 1..9 loop
+            insert into tblGugudan (dan,num, result)
+                values (dan, num, dan*num);
+        end loop;
+    end loop;
+
+end;
+
+select * from tblGugudan;
+
+
+--  3. while loop
+
+declare 
+    vnum number := 1;
+begin
+    while vnum <= 10 loop
+        dbms_output.put_line(vnum);
+        vnum := vnum +1;
+    end loop;
+end;
+
+/*
+
+select > 결과셋 > PL/SQL 변수 대입
+
+1. select into
+    - 결과셋의 레코드가 1개일 때만 사용이 가능하다.
+    
+2. cursor
+    - 결과셋의 레코드가 N개일 때 사용한다.
+
+DECLARE 
+    변수 선언;
+    커서 선언; --결과셋 참조 객체
+BEGIN
+    커서 열기;
+        LOOP
+            데이터 접근(레코드 마다) <- 커서 사용
+        END LOOP;
+    커서 닫기;
+END;
+    
+
+*/ 
+
+declare 
+    vname tblInsa.name%type;
+begin
+    select name into vname from tblInsa; --ORA-01422: exact fetch returns more than requested number of rows
+    dbms_output.put_line(vname);
+end;
+
+
+-- 다중행 + 단일컬럼
+-- 직원명 60개 가져오기
+
+declare 
+    vname tblInsa.name%type;
+    --cursor vcusor is select문;
+    cursor vcursor is select name from tblInsa order by name asc;
+begin
+    open vcursor; --커서 열기 > select 실행 > 결과셋에 커서가 연결(참조)
+--        fetch vcursor into vname; --select into의 역할
+--        dbms_output.put_line(vname);
+--        
+--        fetch vcursor into vname; --select into의 역할
+--        dbms_output.put_line(vname);
+        loop
+            fetch vcursor into vname;
+            
+            exit when vcursor%notfound; --boolean
+            dbms_output.put_line(vname);
+            
+        end loop;
+    close vcursor;
+end;
+
+-- '기획부' 이름, 직위, 급여
+
+declare 
+    cursor vcursor
+        is select name, jikwi, basicpay from tblInsa where buseo = '기획부' order by num asc;
+    vname tblInsa.name%type;
+    vjikwi tblInsa.jikwi%type;
+    vbasicpay tblInsa.basicpay%type;
+begin
+    open vcursor;
+    
+    loop
+        --fetch vcursor into 변수;
+        fetch vcursor into vname, vjikwi, vbasicpay;
+        exit when vcursor%notfound;
+        dbms_output.put_line(vname || '-' || vjikwi || '-' || vbasicpay);
+        
+    end loop;
+    
+    close vcursor;
+    
+end;
+
+
+-- 모든 직원에게 보너스 지급, 간부(1.5), 사원(2)
+
+select * from tblBonus;
+
+create sequence seqBonus start with 4;
+
+
+
+declare
+    cursor vcursor is 
+        select * from tblInsa;
+    vrow tblInsa%rowtype;
+begin
+    open vcursor;
+    loop
+        --fetch vcursor into 변수;
+        fetch vcursor into vrow;
+        exit when vcursor%notfound;
+    
+        if vrow.jikwi in ('과장','부장') then 
+            insert into tblBonus values (seqBonus.nextVal, vrow.num, vrow.basicpay*1.5);
+        elsif vrow.jikwi in ('사원','대리') then 
+            insert into tblBonus values (seqBonus.nextVal, vrow.num, vrow.basicpay*2);
+        end if;
+        
+    end loop;
+    close vcursor;
+
+end;
+
+select s.name,s.basicpay,b.bonus from tblBonus b inner join tblInsa s on s.num = b.num;
+
+--직원당 보너스 총 얼마? 총 몇번?
+select 
+    s.name,
+    count(*),
+    sum(b.bonus)
+from tblBonus b 
+    inner join tblInsa s 
+        on s.num = b.num 
+            group by name;
+            
+            
+-- 커서 탐색
+-- 1. 커서 + loop
+-- 2. 커서 + for loop
+--        > 극단적으로 간단해지는 표현 (아래의 주석처리 구문들이 다 사라짐)
+
+declare 
+    cursor vcursor
+        is select * from tblInsa;
+begin  
+    --open vcursor;
+    --loop
+    for vrow in vcursor loop --loop + fetch into + vrow + exit when
+        --fetch vcursor into vrow;
+        --exit when vcursor%notfound
+        dbms_output.put_line(vrow.name);
+    end loop;
+    --end loop;
+    --close vcursor;
+end;
+
+
+--주석 제거하면
+declare 
+    cursor vcursor
+        is select * from tblInsa;
+begin  
+
+    for vrow in vcursor loop
+        dbms_output.put_line(vrow.name);
+    end loop;
+end;
+
+-- 예외 처리
+--  : 실행부에서 (begin-end) 발생하는 예외를 처리하는 블럭
+
+declare
+    --vname number; --오류가 나게 설정 (자료형이 varchar2인데 number로 설정)
+    vname varchar2(15);
+begin
+    dbms_output.put_line('시작');
+    select name into vname from tblInsa where num = '1001';
+    dbms_output.put_line('끝');
+    
+exception
+    when others then
+        dbms_output.put_line('예외 처리');    
+end;
+
+
+
+--DB 계층 > 오류 발생 > 기록 남긴다.
+create table tblLog(
+    seq number primary key,                                                            --PK
+    code varchar2(7) not null check (code in ('A001', 'B001', 'B002', 'C001')),        --에러 상태 코드
+    message varchar2(1000) not null,                                                   --에러 메시지
+    regdate date default sysdate not null                                              --에러 발생 시간
+);
+
+create sequence seqLog;
+
+
+
+commit;
+rollback;
+
+delete from tblCountry;
+select * from tblCountry;
+
+declare 
+    vcnt number;
+    vname tblInsa.name%type;
+begin
+    select count(*) into vcnt from tblCountry;
+    select name into vname from tblInsa where num = '1000'; --ORA-01403: no data found
+    
+    
+    dbms_output.put_line(100/vcnt);  --ORA-06512: at line 8
+                                     --01476. 00000 -  "divisor is equal to zero"
+    dbms_output.put_line(vname); 
+                                     
+exception
+    when NO_DATA_FOUND then
+        insert into tblLog values (seqLog.nextVal, 'B001', '선택한 이름이 null입니다.', default);
+        
+    when ZERO_DIVIDE then            --https://docs.oracle.com/cd/E11882_01/timesten.112/e21639/exceptions.htm#TTPLS196 에서 검색
+        insert into tblLog values (seqLog.nextVal, 'A001', 'tblCountry가 비어있습니다.', default);
+    
+    when others then 
+        dbms_output.put_line('예외');
+end;
+
+select * from tblLog;  --관리자가 매일 확인...
+
+
+-- 익명 프로시저 끝
+
+-- 실명 프로시저 시작
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="16" version="2.0">
 <workbenchAdvisor/>
-<window height="1277" width="1667" x="-2351" y="192">
+<window height="1277" width="1667" x="-2449" y="232">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -28,11 +28,12 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="copy_of_copy_of_오라클프로젝트.exerd" partName="copy_of_copy_of_오라클프로젝트.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/copy_of_copy_of_오라클프로젝트.exerd" title="copy_of_copy_of_오라클프로젝트.exerd" tooltip="ERD/copy_of_copy_of_오라클프로젝트.exerd" workbook="DefaultEditorWorkbook">
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="copy_of_copy_of_오라클프로젝트.exerd" partName="copy_of_copy_of_오라클프로젝트.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/copy_of_copy_of_오라클프로젝트.exerd" title="copy_of_copy_of_오라클프로젝트.exerd" tooltip="ERD/copy_of_copy_of_오라클프로젝트.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ERD/copy_of_copy_of_오라클프로젝트.exerd"/>
 </editor>
 <editor id="com.tomato.exerd.editor.DiagramEditor" name="copy_of_오라클프로젝트.exerd" partName="copy_of_오라클프로젝트.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/copy_of_오라클프로젝트.exerd" title="copy_of_오라클프로젝트.exerd" tooltip="ERD/copy_of_오라클프로젝트.exerd" workbook="DefaultEditorWorkbook">
@@ -40,6 +41,9 @@
 </editor>
 <editor id="com.tomato.exerd.editor.DiagramEditor" name="hr.exerd" partName="hr.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/hr.exerd" title="hr.exerd" tooltip="ERD/hr.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ERD/hr.exerd"/>
+</editor>
+<editor focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="team.exerd" partName="team.exerd" title="team.exerd" tooltip="C:\Users\rlgus\Documents\ssangyong-oracle-2021\ERD\team.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/team.exerd"/>
 </editor>
 </editors>
 <views>
@@ -71,7 +75,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
+<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -182,6 +186,7 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/오라클프로젝트.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/copy_of_copy_of_오라클프로젝트.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/hr.exerd"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/team.exerd"/>
 </editors>
 <item historyLabel="수업.exerd" index="0"/>
 <item historyLabel="hr.exerd" index="1"/>
@@ -216,7 +221,10 @@
 <item historyLabel="copy_of_copy_of_오라클프로젝트.exerd" index="10"/>
 <item historyLabel="copy_of_오라클프로젝트.exerd" index="8"/>
 <item historyLabel="hr.exerd" index="11"/>
-<item active="true" historyLabel="copy_of_copy_of_오라클프로젝트.exerd" index="10"/>
+<item historyLabel="copy_of_copy_of_오라클프로젝트.exerd" index="10"/>
+<item historyLabel="team.exerd" index="12"/>
+<item historyLabel="copy_of_copy_of_오라클프로젝트.exerd" index="10"/>
+<item active="true" historyLabel="team.exerd" index="12"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -234,6 +242,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="team.exerd" tooltip="C:\Users\rlgus\Documents\ssangyong-oracle-2021\ERD\team.exerd">
+<persistable uri="file:/C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/team.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="hr.exerd" tooltip="ERD/hr.exerd">
 <persistable path="/ERD/hr.exerd"/>
 </file>
