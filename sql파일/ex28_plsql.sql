@@ -752,3 +752,552 @@ select * from tblLog;  --관리자가 매일 확인...
 
 -- 실명 프로시저 시작
 
+
+/*
+
+저장 프로시저
+    1. 저장 프로시저, Stored Procedure
+    2. 저장 함수, Stored Function
+
+1. 저장 프로시저, Stored Procedure
+
+[DECLARE
+    변수선언;
+    커서선언;]
+BEGIN
+    구현부;
+[EXCEPTION
+    예외처리;]
+END;
+
+
+CREATE [OR REPLACE] PROCEDURE 프로시저명
+IS(AS)
+[DECLARE
+    변수선언;
+    커서선언;]
+BEGIN
+    구현부;
+[EXCEPTION
+    예외처리;]
+END;
+
+*/ 
+
+
+set serveroutput on;
+
+
+--PL/SQL 프로시저가 성공적으로 완료되었습니다. > 실행했습니다.
+declare
+    vnum number;
+begin
+    vnum := 200;
+    dbms_output.put_line('num:'|| vnum);
+end;
+
+--Procedure PROCTEST이(가) 컴파일되었습니다. > 오라클 서버에 저장했습니다.
+create or replace procedure procNum
+is
+    vnum number;
+begin
+    vnum := 200;
+    dbms_output.put_line('num:'|| vnum);
+end procNum;
+
+select vnum from dual;
+
+
+
+
+-- 저장 프로시저 호출하는 방법
+--  1.PL/SQL 블럭에서 호출하기 > 권장
+--  2. 스크립트 환경에서 호출하기(ANSI-SQL 환경) > 비권장
+
+
+
+--1.PL/SQL 블럭에서 호출하기 > 권장
+
+
+-- 프로시저는 메서드다.
+begin
+procNum; --다른 프로시저 호출(메소드 -> 다른 메소드 호출)
+procNum;
+procNum;
+end;
+
+--다른 pl sql에서도 메서드처럼 불러올 수 있다.
+create or replace procedure procTest
+is 
+begin
+    procNum;
+end;
+
+
+begin
+    procTest;
+end;
+
+
+--  2. 스크립트 환경에서 호출하기(ANSI-SQL 환경) > 비권장 > 프로시저 연계된 연속 작업 불가능;;
+
+execute procNum;
+exec procNum;
+call procNum(); -- 뒤에 수업할 때 다시 사용(JDBC)
+
+
+-- 프로시저 (=메소드)
+--  1. 매개변수
+--  2. 반환값
+
+--  매개변수가 있는 프로시저
+set serveroutput on;
+
+create or replace procedure procTest(pnum number)
+is 
+    vsum number := 0;
+begin
+    vsum := pnum + 100;
+    dbms_output.put_line(vsum);
+end procTest;
+
+begin
+    procTest(100);
+end;
+
+
+
+create or replace procedure procTest (
+    pwidth number, 
+    pheight number  --매개변수 선언 (parameter)
+)
+is
+    varea number;  --멤버변수 선언 (variable)
+begin  
+    varea := pwidth * pheight;
+    dbms_output.put_line(varea);
+end procTest;
+
+begin
+    procTest(100,200);
+end;
+
+-- 80~120컬럼
+
+/*
+매개변수 모드
+    - 매개변수의 값을 전달하는 방법
+
+1. in > 기본
+2. out
+3. in out
+
+*/
+
+
+create or replace procedure procTest(
+    pnum1 in number, -- in 역할 : 매개변수 역할
+    pnum2 in number,  --원래 in이 있는데, 안쓰면 생략된 것임   
+    presult out number -- out 역할 : 반환값의 역할 > return과 유사
+)   
+is -- 변수가 없어도 생략 불가 
+    -- 익명 프로시저에서는 declare 생략 가능했던 것과 비교됨
+begin
+    
+    presult := pnum1 + pnum2;
+    
+end procTest;
+
+declare 
+    vresult number;
+begin
+    --procTest(10,20); --PLS-00306: wrong number or types of arguments in call to 'PROCTEST'
+    --procTest(10,20,30); --PLS-00363: expression 'TO_NUMBER(SQLDEVBIND1Z_1)' cannot be used as an assignment targe
+    procTest(10,20,vresult); --공간 그 자체를 매개변수를 넘긴다.(참조 변수) > 변수의 주소값 전달
+    dbms_output.put_line(vresult);
+end;
+
+
+-- 직원번호 전달 > 이름, 나이, 부서, 직위 반환
+
+create or replace procedure procGetInsa(
+    -- pnum in tblInsa.num%type -- 일반 변수처럼 타입 참조가 불가능
+    -- pnum in number(10)       -- 일반 변수처럼 길이 지정이 불가능
+    pnum in number,
+    pname out varchar2,
+    page out number,
+    pbuseo out varchar2,
+    pjikwi out varchar2      -- 메소드와 달리 반환값 여러개 가능
+)
+is 
+begin
+
+    select 
+        name, 
+       floor(months_between(sysdate,to_date('19' || substr(ssn,1,6), 'yyyymmdd'))/12),
+       buseo,
+       jikwi into pname, page, pbuseo,pjikwi
+    from tblInsa
+        where num = pnum;
+
+end procGetInsa;
+
+-- 나이 구하기
+-- 먼저 ansi로 해보고 pl에 복붙할 것
+select 
+        name, 
+        floor(months_between(sysdate,to_date('19' || substr(ssn,1,6), 'yyyymmdd'))/12)
+from tblInsa;
+
+
+declare 
+    vname  tblInsa.name%type;
+    vage  number;
+    vbuseo  tblInsa.name%type;
+    vjikwi  tblInsa.name%type;
+begin
+    procGetInsa(1001,vname,vage,vbuseo,vjikwi);
+    dbms_output.put_line(vname);
+    dbms_output.put_line(vage);
+    dbms_output.put_line(vbuseo);
+    dbms_output.put_line(vjikwi);
+end;
+    
+
+
+-- 직원 추가 프로시저
+insert into tblInsa (num, name, ssn, ibsadate, city, tel, buseo, jikwi, basicpay, sudang)
+    values ( (select max(num) + 1 from tblInsa), '','','','','','','',0,0);
+
+-- seq 계산
+select max(num) + 1 from tblInsa;
+
+
+create or replace procedure procAddInsa(
+    pname varchar2,
+    pssn varchar2,
+    pibsadate varchar2,
+    pcity varchar2,
+    ptel varchar2,
+    pbuseo varchar2,
+    pjikwi varchar2,
+    pbasicpay number,
+    psudang number,
+    presult out number --성공(1) or 실패(0)
+)
+is 
+begin
+    insert into tblInsa (num, name, ssn, ibsadate, city, tel, buseo, jikwi, basicpay, sudang)
+        values ( (select max(num) + 1 from tblInsa), pname,pssn,pibsadate,pcity,ptel,pbuseo,pjikwi,0,0);
+    presult := 1;
+
+exception
+    when others then
+        presult := 0;
+end procAddInsa;
+
+
+declare
+    vresult number;
+begin 
+    procAddInsa ('아무개', '951129-2012345','2018-05-10', '서울', '010-1234-5678', '영업부','사원',200000,100000,vresult);
+
+    if vresult = 1 then
+        dbms_output.put_line('성공');
+    else
+        dbms_output.put_line('실패');
+    end if;
+end;
+
+--확인
+select * from tblInsa;
+
+
+
+select * from tblBonus;
+
+--문제1. 직원번호(num)와 보너스배율(1.2, 1.5..)을 전달하면 tblBonus에 항목을 추가하는 프로시저를 만드시오.
+    -- in > num, bonus
+    -- out > result
+-- a. num > select > basicpay
+-- b. num + basicpay * 보너스배율 > insert
+-- c. result > 확인용 out 매개변수 사용
+
+select bonus from tblBonus;
+
+
+create or replace procedure procBonus (
+    pnum in number,
+    pratio in number,
+    presult out number
+)
+is 
+begin
+    insert into tblBonus (seq, num, bonus)
+        values ( (select max(seq) + 1 from tblBonus), pnum, pratio * (select bonus from tblBonus where num = pnum) ); 
+        presult := 1;
+
+exception
+    when others then
+        presult := 0;        
+        
+end procBonus;
+
+
+
+declare
+    vresult number;
+begin 
+    procBonus (1001, 1.2, vresult);
+
+    if vresult = 1 then
+        dbms_output.put_line('성공');
+    else
+        dbms_output.put_line('실패');
+    end if;
+end;
+
+
+-- 강사 풀이
+create or replace procedure procBonus (
+    pnum in number,
+    pbonus in number,
+    presult out number
+)
+is 
+    vbasicpay tblInsa.basicpay%type;
+begin
+    --1.
+    select basicpay into vbasicpay from tblInsa where num = pnum;
+
+    --2.
+    insert into tblBonus (seq, num, bonus)
+        values ( seqBonus.nextVal, pnum, vbasicpay * pbonus );
+    --3.
+    presult := 1;
+
+exception
+    when others then
+        presult := 0;        
+        
+end procBonus;
+
+
+declare
+    vresult number;
+begin 
+    procBonus (1001, 3, vresult);
+
+    if vresult = 1 then
+        dbms_output.put_line('성공');
+    else
+        dbms_output.put_line('실패');
+    end if;
+end;
+
+
+select * from tblBonus;
+
+select * from tblStaff;
+select * from tblProject;
+--문제2. 직원이 퇴사하는 프로시저를 만드시오.
+    -- in > num
+    -- out > result
+--  a. 해당 직원이 담당하는 프로젝트가 있는지 확인
+--  b. 다른 직원에게 프로젝트를 위임한다.
+--  c. 해당 직원이 퇴사한다.
+--  d. result > 확인용 out 매개변수 사용 
+
+create or replace procedure procDeleteStaff (
+    pseq number,  --퇴사자
+    pseq2 number, --위임자
+    presult out number
+)
+is
+    vcnt number;
+begin
+    --1
+    select count(*) into vcnt from tblProject where staff_seq = pseq;
+
+    --2
+    if vcnt > 0 then
+        update tblProject set
+            staff_seq = pseq2
+                where staff_seq = pseq;
+    end if;
+    
+    --3
+    delete from tblStaff where seq = pseq;
+    --4
+    
+    presult := 1;
+
+exception
+    when others then
+        presult := 0;    
+        
+end procDeleteStaff;
+
+
+
+declare
+    vresult number;
+begin 
+    procDeleteStaff(2, 3, vresult);
+
+    if vresult = 1 then
+        dbms_output.put_line('성공');
+    else
+        dbms_output.put_line('실패');
+    end if;
+end;
+
+
+select * from tblStaff;
+select * from tblProject;
+
+
+
+/*
+
+프로시저
+    - in > N개
+    - out > N개
+함수
+    - in > N개
+    - out > 1개
+
+2. 저장 함수 > Stored Procedure
+    - 실행 후 결과값을 반드시 1개만 반환하는 프로시저
+    - 함수에서도 out 매개변수를 사용할 수 있다. > 사용하면 안된다 > return문을 사용해야 한다.
+
+
+*/
+
+-- public int sum(int a, int b)
+
+create or replace function fnSum(
+    pnum1 number,
+    pnum2 number    
+) return number
+is
+begin
+    return pnum1 + pnum2;
+end fnSum;
+
+
+declare 
+    vsum number;
+begin
+    vsum := fnSum(10,20);
+    dbms_output.put_line(vsum);
+end;
+
+
+--A
+select
+    name,
+    buseo,
+    jikwi,
+    case 
+        when substr(ssn,8,1) = '1' then '남자'
+        when substr(ssn,8,1) = '2' then '여자'
+    end as gender
+from
+    tblInsa;
+    
+-- A작업을 빈번하게 사용 > view
+
+-- B.
+create or replace view vwInsa
+as
+select
+    name,
+    buseo,
+    jikwi,
+    case 
+        when substr(ssn,8,1) = '1' then '남자'
+        when substr(ssn,8,1) = '2' then '여자'
+    end as gender
+from
+    tblInsa;
+    
+select * from vwInsa;
+
+
+-- C. 성별이 다른 조합으로 select
+--      - B의 결과물은 사용 불가능
+--        - view는 select구문이 조금만 바뀌어도 다시 만들어야 함
+select
+    num,
+    basicpay,
+    case 
+        when substr(ssn,8,1) = '1' then '남자'
+        when substr(ssn,8,1) = '2' then '여자'
+    end as gender
+from
+    tblInsa;
+    
+
+create or replace procedure procGender(
+    pssn varchar2,
+    pgender out varchar2
+)
+is 
+begin
+    
+    if substr(pssn,8,1) = '1' then
+        pgender := '남자';
+    elsif substr(pssn, 8,1) = '2' then
+        pgender := '여자';
+    end if;
+end procGender;
+
+declare 
+    vgender varchar2(6);
+begin
+    procGender('951202-2012457', vgender);
+    dbms_output.put_line(vgender);
+end;
+    
+-- ****** 저장 프로시저는 ANSI-SQL 내에서 사용이 불가능 > 이유 : 반환값 형태와 개수
+select 
+    num,
+    basicpay,
+    procGender(ssn, ?) as gender
+from tblInsa;
+
+
+-- ****** 저장 함수는 ANSI-SQL 내에서 사용이 가능 > 이유 : 반환값 개수가 1개이므로
+    -- 프로시저 VS 함수
+        -- 공통 : 코드의 집합
+        -- 차이 : 프로시저는 PL/SQL에서만 사용, 함수는 ANSI/SQL에서 사용
+
+
+create or replace function fnGender(
+    pssn varchar2  
+)return varchar2
+is 
+begin
+    
+    if substr(pssn,8,1) = '1' then
+        return '남자';
+    elsif substr(pssn, 8,1) = '2' then
+        return '여자';
+    end if;
+end fnGender;
+
+select
+    name,
+    buseo,
+    jikwi,
+    fnGender(ssn) as gender
+from
+    tblInsa;
+
+select 
+    num,
+    basicpay,
+    fnGender(ssn) as gender
+from tblInsa;
+
