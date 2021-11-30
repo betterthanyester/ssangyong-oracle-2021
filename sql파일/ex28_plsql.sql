@@ -1301,3 +1301,260 @@ select
     fnGender(ssn) as gender
 from tblInsa;
 
+
+
+
+
+
+
+/*
+Trigger, 트리거
+    - 프로시저의 일종 > 이름이 있다 + 저장이 된다.
+    - 특정 사건이 발생하면 (미리 예약) 자동으로 호출되는 프로시저
+    - 특정 테이블 지정(목표) > 감시 > insert or update or delete > 미리 준비해놓은 프로시저 호출 
+    
+1. 프로시저 > 사용자가 호출 > PL/SQL 상에서...
+2. 함수 > 사용자가 호출 > PL/SQL + ANSI-SQL 상에서...
+3. 트리거 > 시스템이 호출 > ?? > 이벤트가 발생하면 미리 등록해놓은 트리거가 실행된다.
+
+
+
+CREATE OR REPLACE TRIGGER 트리거명
+    -- 트리거 옵션
+    BEFORE|AFTER
+    INSERT|UPDATE|DELETE ON 테이블명
+    FOR EACH ROW
+DECLARE
+    선언부;
+BEGIN
+    실행부;
+EXCEPTION
+    예외처리부;
+END;
+
+
+*/
+
+select * from tblStaff;
+
+create table tblLogStaff (
+    seq number primary key,
+    message varchar2(1000) not null,
+    regdate date default sysdate not null
+
+);
+
+create sequence seqLogStaff start with 5;
+
+
+-- 직원 추가, 수정, 삭제 > tblLogStaff에 기록 
+
+-- A. 하드 작업
+insert into tblStaff (seq, name, salary, address) values (5, '유재석',300, '서울시');
+insert into tblLogStaff (seq, message, regdate) values (seqLogStaff.nextVal, '유재석 직원을 추가했습니다.', default);
+
+insert into tblStaff (seq, name, salary, address) values (6, '강호동',350, '부산시');
+
+select * from tblStaff;
+select * from tblLogStaff;
+
+-- B. 프로시저
+
+create or replace procedure procAddStaff(
+    pseq number,
+    pname varchar2,
+    psalary number,
+    paddress varchar2
+
+)
+is
+begin
+    insert into tblStaff (seq, name, salary, address) values (pseq, pname,psalary, paddress);
+    insert into tblLogStaff (seq, message, regdate) values (seqLogStaff.nextVal, pname||'직원을 추가했습니다.', default);
+end procAddStaff;
+
+-- + 공지 : 앞으로 직원을 추가할 때 ANSI-SQL를 직접 사용하지 말고, procAddStaff를 사용하세요 
+
+begin
+    procAddStaff(7,'제시',250, '울산시');
+end;
+
+select * from tblStaff;
+select * from tblLogStaff;
+
+-- 공지대로 안하고 직접 ANSI쓰는 사람이 생김
+
+-- C. 트리거
+
+create or replace trigger trgLogStaff 
+    after 
+    insert on tblStaff --tblStaff에 새로운 행이 insert되면 그 직후에 (after의 의미)  이 트리거를 호출해라
+declare 
+
+begin
+
+    insert into tblLogStaff (seq, message, regdate) values (seqLogStaff.nextVal, '새 직원을 추가했습니다.', default);
+
+end trgLogStaff;
+
+
+insert into tblStaff (seq, name, salary, address) values (9, '조세호', 200, '부천시');
+
+select * from tblStaff;
+select * from tblLogStafsf;
+
+
+/*
+
+연속된 2개의 작업을 할 때.. (직원 추가 > 로그 기록)
+    - 직원 추가(주업무) > 로그 기록(보조업무)
+    - 계좌 송금(주업무) > 계좌 인출(주업무)
+
+1. 프로시저
+    - 연속된 작업이 모두 주업무일 때...(동등한 수준의 업무들...)
+    - 눈에 보인다. 
+
+2. 트리거 
+    - 선행 작업은 주업무이고, 후생 작업은 보조업무일 때... (수준이 다른 업무들...)
+    - 눈에 안보인다.
+
+*/
+
+
+
+/*
+
+
+FOR EACH ROW
+
+1. 사용 O
+    - 행 단위 트리거 > 트리거 실행 반복
+    - 감시하던 작업이 여러개의 레코드에서 발생하면 그 횟수만큼 트리거를 실행
+
+2. 사용 X
+    - 문장 단위 트리거 > 트리거 실행 1회
+    - 감시하던 작업이 여러 개의 레코드에서 발생해도 트리거는 단 한번만 실행
+    
+    
+FOR EACH ROW에서만 사용 가능한 상관 관계
+    - 사건이 발생한 레코드를 참조하는 역할
+    1. :new
+        - 새로운 데이터로 추가(변경)된 행을 참조한다.
+        - insert or update -> 새로운 정보를 가져오는 역할
+    2. :old
+        - 변경이 되거나 삭제되는 이전 행을 참조한다.
+        - update or delete -> 이전 정보를 가져오는 역할
+    
+
+*/
+
+select * from tblTodo;
+
+
+create or replace trigger trgTodo
+    after 
+    update on tblTodo -- 이 테이블에서 update 작업이 일어나면 그 직후에 아래의 내용을 실행해라
+    for each row
+begin 
+    --dbms_output.put_line('tblTodo가 수정되었습니다.');
+    --dbms_output.put_line(:new.title || '이 수정되었습니다.');
+    dbms_output.put_line('수정전:' || :old.title); 
+    dbms_output.put_line('수정후:' || :new.title); 
+end;
+
+set serveroutput on;
+
+update tblTodo set title = '고양이 산책시키기' where seq = 5;           --적용되는 행의 개수 > 1개
+update tblTodo set completedate = sysdate where completedate is null; -- 적용되는 행의 개수 > N개
+
+rollback;
+
+
+select * from tblStaff;
+select * from tblProject;
+
+
+--업무 위임 프로시저
+declare 
+    vresult number;
+begin
+    procDeleteStaff(4,3,vresult);
+    dbms_output.put_line(vresult);
+end;
+
+-- 트리거(퇴사 -> 어떤 업무를 누구에게 위임했는지 기록)
+
+-- 삭제 시 발생하는 트리거
+DROP TRIGGER trgDeleteStaff;
+
+create or replace trigger trgDeleteStaff
+    before
+    delete on tblStaff
+    for each row
+declare
+    vname1 tblStaff.name%type;
+begin
+        
+    select name into vname1 from tblStaff where seq = :old.seq; -- mutating걸림 -> 프로시저에 추가해버리기
+    dbms_output.put_line('['||to_char(sysdate, 'HH24:MI:SS')|| ']퇴사자(' || vname1 || ')');
+    
+end trgDeleteStaff;
+
+DROP TRIGGER trgDelegateStaff;
+
+
+
+
+-- 위임 시 발생하는 트리거
+create or replace trigger trgDelegateStaff
+    after
+    update on tblProject
+    for each row
+declare
+    vname1 tblStaff.name%type;
+    vname2 tblStaff.name%type;
+begin
+
+    --:new.staff_seq --> 인수인계받은 직원번호
+    --:old.staff_seq --> 퇴사하는 직원번호
+    
+    select name into vname1 from tblStaff where seq = :old.staff_seq; --퇴사자
+    
+    select name into vname2 from tblStaff where seq = :new.staff_seq; --퇴사자
+    
+    dbms_output.put_line('['||to_char(sysdate, 'HH24:MI:SS')|| ']퇴사자(' || vname1 || ')인계자(' || vname2 || ')');
+    
+end trgDelegateStaff;
+
+
+-- 트리거에서 mutating 발생되면 : 그 작업을 포기하고, 프로시저 (프로그램)을 짜자. 해결이 안된다.
+
+
+/*
+
+테이블 삭제
+    - 테이블 관계 (부모-자식) : 참조하고 있는 자식이 있다면 삭제 불가
+    - 삭제하려는 테이블과 관계를 맺고 있는 자식 테이블을 확인하는 방법
+        1. ERD (FM)
+    
+    - 삭제 방법
+        1. 자식 테이블 삭제 > 부모 테이블 삭제
+        2. FK 제약사항을 삭제 > 부모 테이블 삭제
+        3. drop table tblStaff cascade constraints purge -- 2번을 먼저 실행한 뒤 drop을 합친 행동
+
+        --> 1번은 관계를 파악하고 지우는 것인 반면, cascade 옵션은 관계를 모르고 하는 것이므로, 쓰지 말자... 위험하다.
+        --> 그리고 웬만하면 이런 상황을 만들지 말자. 
+*/
+
+drop table tblStaff; --tblProject (자식테이블)을 먼저 삭제
+drop table tblStaff cascade constraints purge; 
+
+
+
+-- 자식 테이블 목록을 보여주는 쿼리
+SELECT fk.owner, fk.constraint_name , fk.table_name
+  FROM all_constraints fk, all_constraints pk
+    WHERE fk.R_CONSTRAINT_NAME = pk.CONSTRAINT_NAME
+        AND fk.CONSTRAINT_TYPE = 'R'
+        AND pk.TABLE_NAME = 'DEPARTMENTS' --대문자
+            ORDER BY fk.TABLE_NAME;
