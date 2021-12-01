@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="16" version="2.0">
 <workbenchAdvisor/>
-<window height="1277" maximized="true" width="1910" x="-1982" y="590">
+<window height="1277" width="1322" x="-1434" y="69">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -31,6 +31,7 @@
 <part id="3"/>
 <part id="4"/>
 <part id="5"/>
+<part id="6"/>
 </presentation>
 </folder>
 </info>
@@ -50,8 +51,8 @@
 <editor id="com.tomato.exerd.editor.DiagramEditor" name="team(2).exerd" partName="team(2).exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/team(2).exerd" title="team(2).exerd" tooltip="ERD/team(2).exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ERD/team(2).exerd"/>
 </editor>
-<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="team.exerd" partName="team.exerd" title="team.exerd" tooltip="C:\Users\rlgus\Documents\ssangyong-oracle-2021\프로젝트\team.exerd" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/rlgus/Documents/ssangyong-oracle-2021/프로젝트/team.exerd"/>
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="추가.exerd" partName="추가.exerd" path="C:/Users/rlgus/Documents/ssangyong-oracle-2021/ERD/추가.exerd" title="추가.exerd" tooltip="ERD/추가.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ERD/추가.exerd"/>
 </editor>
 </editors>
 <views>
@@ -198,6 +199,7 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/copy_of_copy_of_오라클프로젝트.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/team(2).exerd"/>
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Users/rlgus/Documents/ssangyong-oracle-2021/프로젝트/team.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ERD/추가.exerd"/>
 </editors>
 <item historyLabel="수업.exerd" index="0"/>
 <item historyLabel="hr.exerd" index="1"/>
@@ -242,6 +244,8 @@
 <item historyLabel="team(2).exerd" index="14"/>
 <item historyLabel="team.exerd" index="12"/>
 <item historyLabel="team(2).exerd" index="14"/>
+<item historyLabel="team.exerd" index="15"/>
+<item historyLabel="추가.exerd" index="16"/>
 <item active="true" historyLabel="team.exerd" index="15"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -260,6 +264,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="추가.exerd" tooltip="ERD/추가.exerd">
+<persistable path="/ERD/추가.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="team.exerd" tooltip="C:\Users\rlgus\Documents\ssangyong-oracle-2021\프로젝트\team.exerd">
 <persistable uri="file:/C:/Users/rlgus/Documents/ssangyong-oracle-2021/프로젝트/team.exerd"/>
 </file>
