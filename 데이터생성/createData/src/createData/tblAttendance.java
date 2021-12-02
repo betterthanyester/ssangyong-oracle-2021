@@ -1,14 +1,36 @@
 package createData;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Scanner;
  
 public class tblAttendance {
 
 	public static void main(String[] args) throws IOException {
 		
+		
+		ArrayList<String> holidayList = new ArrayList<String>(); 
+		
+		Scanner scanner = new Scanner(new File("C:\\Users\\rlgus\\Documents\\ssangyong-oracle-2021\\오라클프로젝트\\데이터\\중간값\\holiday.txt"));
+
+		
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+
+			String info[] = line.split(",");
+
+			String holidate = info[0].substring(0,4) + "-" +info[0].substring(4,6)+"-"+ info[0].substring(6);
+			
+			holidayList.add(holidate);
+
+		}//while
+		
+		
+	
 		
 		int codeNum = 1;
 			
@@ -34,10 +56,10 @@ public class tblAttendance {
 
 		
 		
+		String seq = "attendanceSeq";
 		
 		
-		
-		BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\rlgus\\Documents\\ssangyong-oracle-2021\\오라클프로젝트\\데이터\\중간값\\tblAttendance3.sql"));	
+		BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\rlgus\\Documents\\ssangyong-oracle-2021\\오라클프로젝트\\데이터\\중간값\\tblAttendanceMain.sql"));	
 		
 		String sql = "";
 		String strDate = "";
@@ -75,14 +97,13 @@ public class tblAttendance {
     	            
     	        	
     	        	
-    	            if(k==0) { //���� ���� ���
-    	                //System.out.printf("%s\n",dateFormat.format(cal.getTime()));
+    	            if(k==0) { 
     	                
     	            	strDate = dateFormat.format(cal.getTime());
     	            	
     	            	String[] arr = gunteResult(gunteArr);
     	            	
-    	                sql = String.format("insert into tblAttendance values (%d,'%s',%d, %d, '%s', '%s', '%s');", codeNum, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
+    	                sql = String.format("insert into tblAttendance values (%s,'%s',%d, %d, '%s', '%s', '%s');", seq, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
     	                
     	                System.out.println(sql);
     					
@@ -99,7 +120,7 @@ public class tblAttendance {
     	            
     	            String[] arr = gunteResult(gunteArr);
     	            
-    	            sql = String.format("insert into tblAttendance values (%d,'%s',%d, %d, '%s', '%s', '%s');", codeNum, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
+    	            sql = String.format("insert into tblAttendance values (%s,'%s',%d, %d, '%s', '%s', '%s');", seq, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
 	                
 	                System.out.println(sql);
 					
@@ -149,7 +170,7 @@ public class tblAttendance {
     	            	
     	            	String[] arr = gunteResult(gunteArr);
         	            
-        	            sql = String.format("insert into tblAttendance values (%d,'%s',%d, %d, '%s', '%s', '%s');", codeNum, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
+        	            sql = String.format("insert into tblAttendance values (%s,'%s',%d, %d, '%s', '%s', '%s');", seq, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
         	            
     	                System.out.println(sql);
     					
@@ -166,7 +187,7 @@ public class tblAttendance {
 	            	
     	            String[] arr = gunteResult(gunteArr);
     	            
-    	            sql = String.format("insert into tblAttendance values (%d,'%s',%d, %d, '%s', '%s', '%s');", codeNum, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
+    	            sql = String.format("insert into tblAttendance values (%s,'%s',%d, %d, '%s', '%s', '%s');", seq, strDate , courseNum ,i, arr[0], arr[1], arr[2]);
 	                System.out.println(sql);
 					
 	    			writer.write(sql+"\r\n");
@@ -183,6 +204,10 @@ public class tblAttendance {
         writer.close();
 //        
 
+
+
+		
+		
 	}//main
 
 	

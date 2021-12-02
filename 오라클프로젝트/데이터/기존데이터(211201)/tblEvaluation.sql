@@ -1,0 +1,261 @@
+create table tblEvaluation (
+          evaluationSeq number primary key,
+          openSubjectSeq number not null references tblOpenSubject(openSubjectSeq),
+          sugangSeq number not null references tblSugang(sugangSeq)
+);
+
+create sequence seqEvaluation;
+
+
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,1);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,2);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,3);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,4);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,5);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,6);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,7);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,8);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,9);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,10);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,11);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,12);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,13);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,14);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,15);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,16);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,17);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,18);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,19);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,20);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,21);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,22);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,23);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,24);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,25);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,26);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,27);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,28);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,29);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,1,30); --1번 과목 30명 평가
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,1);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,2);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,3);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,4);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,5);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,6);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,7);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,8);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,9);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,10);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,11);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,12);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,13);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,14);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,15);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,16);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,17);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,18);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,19);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,20);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,21);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,22);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,23);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,24);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,25);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,26);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,27);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,28);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,29);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,2,30); --2번과목 30명 평가
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,1);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,2);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,3);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,4);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,5);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,6);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,7);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,8);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,9);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,10);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,11);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,12);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,13);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,14);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,15);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,16);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,17);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,18);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,19);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,20);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,21);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,22);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,23);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,24);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,25);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,26);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,27);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,28);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,29);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,3,30); --3번과목 30명평가
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,1);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,2);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,3);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,4);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,5);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,6);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,7);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,8);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,9);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,10);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,11);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,12);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,13);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,14);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,15);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,16);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,17);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,18);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,19);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,20);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,21);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,22);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,23);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,24);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,25);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,26);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,27);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,28);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,29);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,4,30); --4번과목 1~30번평가
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,61);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,62);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,63);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,64);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,65);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,66);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,67);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,68);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,69);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,70);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,71);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,72);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,73);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,74);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,75);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,76);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,77);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,78);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,79);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,80);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,81);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,82);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,83);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,84);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,85);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,86);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,87);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,88);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,89);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,6,90); --6번과목 61~90번 평가
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,61);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,62);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,63);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,64);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,65);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,66);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,67);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,68);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,69);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,70);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,71);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,72);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,73);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,74);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,75);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,76);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,77);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,78);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,79);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,80);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,81);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,82);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,83);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,84);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,85);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,86);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,87);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,88);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,89);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,7,90); --7번과목 61~90평가
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,61);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,62);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,63);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,64);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,65);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,66);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,67);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,68);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,69);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,70);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,71);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,72);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,73);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,74);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,75);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,76);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,77);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,78);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,79);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,80);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,81);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,82);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,83);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,84);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,85);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,86);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,87);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,88);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,89);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,8,90); --8번과목 61~90번평가
+
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,61);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,62);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,63);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,64);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,65);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,66);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,67);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,68);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,69);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,70);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,71);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,72);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,73);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,74);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,75);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,76);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,77);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,78);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,79);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,80);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,81);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,82);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,83);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,84);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,85);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,86);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,87);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,88);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,89);
+insert into tblEvaluation (evaluationSeq, openSubjectSeq, sugangSeq) VALUES (seqEvaluation.nextVal,9,90); --9번과목 61~90번평가
+
+commit;
+
+select count(*) from tblEvaluation;
