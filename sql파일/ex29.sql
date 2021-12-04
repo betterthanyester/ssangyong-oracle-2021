@@ -114,6 +114,9 @@ insert into tblHoliday values (1, '2019-10-03', '개천절');
 insert into tblHoliday values (2, '2019-10-09', '한글날');
 
 select * from tblHoliday;
+select * from vwattendance;
+select* from vwdate;
+
 
 
 

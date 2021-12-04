@@ -1558,3 +1558,9 @@ SELECT fk.owner, fk.constraint_name , fk.table_name
         AND fk.CONSTRAINT_TYPE = 'R'
         AND pk.TABLE_NAME = 'DEPARTMENTS' --대문자
             ORDER BY fk.TABLE_NAME;
+            
+            
+            
+            
+            
+    

@@ -56,10 +56,10 @@ public class tblAttendance {
 
 		
 		
-		String seq = "attendanceSeq";
+		String seq = "seqAttendance.nextVal";
 		
 		
-		BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\rlgus\\Documents\\ssangyong-oracle-2021\\오라클프로젝트\\데이터\\중간값\\tblAttendanceMain.sql"));	
+		BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\rlgus\\Documents\\ssangyong-oracle-2021\\오라클프로젝트\\데이터\\중간값\\tblAttendanceForJumal.sql"));	
 		
 		String sql = "";
 		String strDate = "";
