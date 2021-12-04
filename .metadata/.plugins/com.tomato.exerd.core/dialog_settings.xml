@@ -7,6 +7,13 @@
 	</section>
 	<section name="com.tomato.exerd.core.wizard.NewEXerdWizard">
 	</section>
+	<section name="com.tomato.exerd.print.PrintSettingsEditorDialog">
+		<item value="750" key="DIALOG_WIDTH"/>
+		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
+		<item value="805" key="DIALOG_HEIGHT"/>
+		<item value="788" key="DIALOG_X_ORIGIN"/>
+		<item value="93" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="com.tomato.exerd.diagramwizard.DiagramWizard">
 		<item value="schema" key="method"/>
 	</section>
