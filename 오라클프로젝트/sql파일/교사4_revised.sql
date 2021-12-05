@@ -71,6 +71,7 @@ select distinct * from vwScoreSubject where "교사번호" = 10 order by "개설
 select count(*) from tblwrittentestscore;
 
 --요구사항 2: 과목번호 선택 시 교육성 정보를 출력
+    -- 중도탈락된 경우, 그 이후 치뤄진 시험의 성적은 null로 처리
 --------------------------------------------------------------------------------
 create or replace view vwScoreMember
 as  
@@ -135,6 +136,9 @@ commit;
 set serverout on;
 
 
+--프로시저
+
+
 create or replace procedure procReviseScore(
     psugangseq number, 
     popensubjectseq number,
@@ -161,6 +165,9 @@ end procReviseScore;
 commit;
 
 rollback;
+
+
+--트리거
 
 
 

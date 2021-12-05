@@ -1,8 +1,12 @@
 ----------------------------
+-- tblAttendance 자료형 제약사항 수정
+--  tblOuting drop 후에 drop 가능
+
 
 create or replace view vwattendance
 as
 select
+os.TEACHERSEQ as "교사번호",
 a.OPENSUBJECTSEQ as "과목번호",
 SUBJECTNAME as "과목명",
 a.SUGANGSEQ as "수강번호",
@@ -28,28 +32,12 @@ from TBLATTENDANCE a
                             left outer join TBLCOURSE co on oc.COURSESEQ = co.COURSESEQ
                                 left outer join TBLCLASSROOM cl on oc.CLASSROOMSEQ = cl.CLASSROOMSEQ
                                     left outer join TBLOUTING ou on a.ATTENDANCESEQ = ou.ATTENDANCESEQ
---      where a.OPENSUBJECTSEQ = 1
---            and a.SUGANGSEQ = 1
     order by a.SUGANGSEQ, a.ATTENDANCEDATE;
 
 commit;
 
--- select
--- max("날짜")
--- from vwattendance;
 
--- select
---     to_date('2021-07-02','yyyy-mm-dd') + level -1 as regdate
---     from dual
---         connect by level <= (to_date('2021-12-27', 'yyyy-mm-dd') - to_date('2021-07-02','yyyy-mm-dd')+1);
---
--- select * from vwDate;
---
---
--- select
--- distinct("날짜")
--- from vwattendance
---     order by "날짜";
+-------------------------------------------------
 
 create or replace view vwNullDate
 as
@@ -69,56 +57,40 @@ from
                 left outer join TBLHOLIDAY h on v.regdate = h.HOLIDAY)
                      order by v.regdate;
 
-
 select * from vwNullDate;
 
-commit;
 
---insert into tblAttendance values (seqAttendance.nextVal,'2021-07-21',1, 1, '결석', '0', '0');
+create table tblNullDate(
+        regdate date primary key,
+        type varchar2(60) not null
+);
 
-
-
-/* for 수강번호
-        for 개설과목번호
-            if sele
- */
 
 
 declare
-    vnull number;
+    vregdate tblNullDate.regdate%type;
+    vtype tblNullDate.type%type;
+    cursor vcursor is select regdate, type from vwNullDate;
 begin
-    select count(distinct("과목번호")) into vnull from vwattendance where "수강번호" = 100;
-    if vnull = 0 then
-        return
-    end if;
+    open vcursor;
+        loop
+            fetch vcursor into vregdate,vtype;
+            exit when vcursor%notfound; --boolean
+            insert into tblNullDate values (vregdate,vtype);
+        end loop;
+    close vcursor;
 end;
 
 
-select * from vwattendance;
-
-select min("수강번호") from vwattendance;
-select max("수강번호") from vwattendance;
-select min(regdate) from vwNullDate;
-select max(regdate) from vwNullDate;
-
-select distinct("과정시작") from vwattendance where "수강번호" = 1;
-select distinct("과정종료") from vwattendance where "수강번호" = 1;
-select distinct("과목번호") from vwattendance where "수강번호" = 1;
+select * from tblNullDate;
 
 
-declare
-    vnull number;
-begin
-    select count(distinct("과목번호")) into vnull from vwattendance where "수강번호" = 100;
-    if vnull = 0 then
-        return
-    end if;
-end;
 
 commit;
 rollback;
 
-select count(*) from tblattendance;
+
+select count(*) from tblattendance; -- 6930
 
 declare
     vSugangMin number;
@@ -128,55 +100,72 @@ declare
     vnull number;
     vSubjectStart date;
     vSubjectEnd date;
-    vDate vwNullDate.regdate%type;
-    vType vwNullDate.type%type;
-    cursor vcursor is select regdate, type from vwNullDate;
+    vDate tblNullDate.regdate%type;
+    vType tblNullDate.type%type;
+    cursor vcursor is select regdate, type from tblNullDate;
 
 begin
-    select min("수강번호") into vSugangMin from vwattendance;
-    select max("수강번호") into vSugangMax from vwattendance;
+    select min(SUGANGSEQ) into vSugangMin from tblattendance;
+    select max(SUGANGSEQ) into vSugangMax from tblattendance;
     select min(OPENSUBJECTSEQ) into vopenSubjectSeqMin from TBLOPENSUBJECT;
     select max(OPENSUBJECTSEQ) into vopenSubjectSeqMax from TBLOPENSUBJECT;
     for suSeq in vSugangMin..vSugangMax loop
+--         sys.dbms_output.put_line(suSeq);
         for subSeq in vopenSubjectSeqMin..vopenSubjectSeqMax loop
-            select count(distinct("과목번호")) into vnull from vwattendance where "수강번호" = suSeq and "과목번호" = subSeq;
+--             sys.dbms_output.put_line(suSeq || ', ' || subseq);
+            select count(distinct(OPENSUBJECTSEQ)) into vnull from tblattendance where SUGANGSEQ = suSeq and OPENSUBJECTSEQ = subSeq;
             if vnull > 0 then
                 select STARTDATE into vSubjectStart from TBLOPENSUBJECT where OPENSUBJECTSEQ = subSeq;
                 select ENDDATE into vSubjectEnd from TBLOPENSUBJECT where OPENSUBJECTSEQ = subSeq;
+--                 sys.dbms_output.put_line(vnull|| ', ' || vSubjectStart|| ', ' || vSubjectEnd);
                 open vcursor;
-                loop
-                    fetch vcursor into vDate, vType;
-                    exit when vcursor%notfound;
-                    if (vDate >= vSubjectStart and vDate <= vSubjectEnd) then
-                        insert into tblAttendance values (seqAttendance.nextVal,vDate,subSeq, suSeq, vType , '0', '0');
-                    end if;
-                end loop;
+                    loop
+                        fetch vcursor into vDate, vType;
+                        exit when vcursor%notfound;
+                        if (vDate >= vSubjectStart and vDate <= vSubjectEnd) then
+--                             sys.dbms_output.put_line(suSeq|| ', ' ||subSeq|| ', ' ||vSubjectStart|| ', ' || vDate|| ', ' || vSubjectEnd);
+                             insert into tblAttendance values (seqAttendance.nextVal,vDate,subSeq, suSeq, vType , '0', '0');
+                        end if;
+                    end loop;
                 close vcursor;
             end if;
         end loop;
     end loop;
 end;
 
-select
-*
-from vwNullDate n
-    left outer join vwattendance a on n.regdate = a.날짜;
 
-select * from vwNullDate;
+
+select count(*) from tblattendance; -- 6930  --10260
+
 
 select * from vwattendance;
 
-select * from TBLATTENDANCE order by ATTENDANCEDATE;
-
-select * from vwNullDate where regdate in ('2021-01-01','2021-12-30') ;
 
 
-select * from vwattendance where 날짜 = '2021-12-25';
-
-begin
-    if 1>=1 and 1<=1 then
-        dbms_output.put_line('yes');
-    end if;
 
 
-end;
+
+-- 요구사항 : 교사가 자신이 강의한 과목들에 대해서 전체 또는 특정 인원의 출결을 확인할 수 있어야 한다.
+    -- 과목이 여러개라고 가정
+    -- 날짜 구간 설정
+    -- 4가지 경우
+        -- 전체 과목, 전체 학생
+        -- 전체 과목, 특정 학생
+        -- 특정 과목, 전체 학생
+        -- 특정 과목, 특정 학생
+select
+*
+from vwattendance
+        where "교사번호" = 10 -- 전체 과목, 전체 학생
+        and "날짜" between to_date('2021-07-02', 'yyyy-mm-dd') and to_date('2021-07-05', 'yyyy-mm-dd') --특정 기간
+--         and "과목번호" = 1 -- 특정 과목, 전체 학생
+--         and "수강번호" = 14 -- 전체 과목, 특정 학생
+--         and "과목번호" = 1 and "수강번호" = 14 --특정 과목, 특정 학생
+            order by "수강번호", "날짜";
+
+
+
+
+
+
+rollback;
