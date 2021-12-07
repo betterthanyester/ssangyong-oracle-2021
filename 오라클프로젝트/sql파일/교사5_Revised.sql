@@ -36,6 +36,7 @@ from TBLATTENDANCE a
 
 commit;
 
+select * from vwattendance;
 
 -------------------------------------------------
 
@@ -44,9 +45,9 @@ as
 select
 regdate,
 case
-    when to_char(v.regdate, 'd') in ('1', '7') and h.name is not null then '토, 일 & ' || h.name
+    when to_char(v.regdate, 'd') in ('1', '7') and h.name is not null then '토, 일'
     when to_char(v.regdate, 'd') in ('1', '7') and h.name is null then '토, 일'
-    else h.NAME
+    else '공휴일'
 end as type
 from
 ((select
@@ -65,7 +66,7 @@ create table tblNullDate(
         type varchar2(60) not null
 );
 
-
+drop table tblNullDate;
 
 declare
     vregdate tblNullDate.regdate%type;
@@ -109,10 +110,14 @@ begin
     select max(SUGANGSEQ) into vSugangMax from tblattendance;
     select min(OPENSUBJECTSEQ) into vopenSubjectSeqMin from TBLOPENSUBJECT;
     select max(OPENSUBJECTSEQ) into vopenSubjectSeqMax from TBLOPENSUBJECT;
+
+    --수강생
     for suSeq in vSugangMin..vSugangMax loop
 --         sys.dbms_output.put_line(suSeq);
+        --개설과목
         for subSeq in vopenSubjectSeqMin..vopenSubjectSeqMax loop
 --             sys.dbms_output.put_line(suSeq || ', ' || subseq);
+
             select count(distinct(OPENSUBJECTSEQ)) into vnull from tblattendance where SUGANGSEQ = suSeq and OPENSUBJECTSEQ = subSeq;
             if vnull > 0 then
                 select STARTDATE into vSubjectStart from TBLOPENSUBJECT where OPENSUBJECTSEQ = subSeq;
@@ -143,8 +148,6 @@ select * from vwattendance;
 
 
 
-
-
 -- 요구사항 : 교사가 자신이 강의한 과목들에 대해서 전체 또는 특정 인원의 출결을 확인할 수 있어야 한다.
     -- 과목이 여러개라고 가정
     -- 날짜 구간 설정
@@ -157,13 +160,17 @@ select
 *
 from vwattendance
         where "교사번호" = 10 -- 전체 과목, 전체 학생
-        and "날짜" between to_date('2021-07-02', 'yyyy-mm-dd') and to_date('2021-07-05', 'yyyy-mm-dd') --특정 기간
+        and "날짜" between to_date('2021-07-02', 'yyyy-mm-dd') and to_date('2021-07-25', 'yyyy-mm-dd') --특정 기간
 --         and "과목번호" = 1 -- 특정 과목, 전체 학생
 --         and "수강번호" = 14 -- 전체 과목, 특정 학생
 --         and "과목번호" = 1 and "수강번호" = 14 --특정 과목, 특정 학생
             order by "수강번호", "날짜";
 
-
+ alter table TBLWRITTENTEST drop constraint SYS_C007675;
+  alter table TBLATTENDANCE drop constraint SYS_C007681;
+   alter table TBLATTENDANCE drop constraint SYS_C007644;
+    alter table TBLATTENDANCE drop constraint SYS_C007669;
+     alter table TBLATTENDANCE drop constraint SYS_C007719;
 
 
 
